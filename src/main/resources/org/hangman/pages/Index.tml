@@ -1,0 +1,77 @@
+<html t:type="layout" title="Hangman Game"
+      t:sidebarTitle="Framework Version"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="images/hang/hang${missedCount}.gif" class="img-rounded" />
+        </div>
+        <div class="col-md-4">
+            <t:if test="hasChosen">
+                <t:loop t:source="characters" t:value="chosenChar">
+                    <t:if test="${chosenChar}">
+                        <img src="images/letters/${chosenChar}.gif" class="img-rounded" />
+                        <p:else>
+                            <img src="images/letters/letter.gif" class="img-rounded" />
+                        </p:else>
+                    </t:if>
+                </t:loop>
+            </t:if>
+        </div>
+        <t:if test="gameUp" negate="true">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="span4 text-center">
+                        <t:eventlink t:event="letterClicked" t:context="literal:A"><img src="images/letters/a.gif" alt="a" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:B"><img src="images/letters/b.gif" alt="b" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:C"><img src="images/letters/c.gif" alt="c" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:D"><img src="images/letters/d.gif" alt="d" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:E"><img src="images/letters/e.gif" alt="e" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:F"><img src="images/letters/f.gif" alt="f" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:G"><img src="images/letters/g.gif" alt="g" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:H"><img src="images/letters/h.gif" alt="h" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:I"><img src="images/letters/i.gif" alt="i" class="img-rounded" /></t:eventlink>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4 text-center">
+                        <t:eventlink t:event="letterClicked" t:context="literal:J"><img src="images/letters/j.gif" alt="k" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:K"><img src="images/letters/k.gif" alt="l" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:L"><img src="images/letters/l.gif" alt="m" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:N"><img src="images/letters/m.gif" alt="n" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:N"><img src="images/letters/n.gif" alt="o" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:O"><img src="images/letters/o.gif" alt="p" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:P"><img src="images/letters/p.gif" alt="q" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:Q"><img src="images/letters/q.gif" alt="r" class="img-rounded" /></t:eventlink>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4 text-center">
+                        <t:eventlink t:event="letterClicked" t:context="literal:R"><img src="images/letters/r.gif" alt="r" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:S"><img src="images/letters/s.gif" alt="s" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:T"><img src="images/letters/t.gif" alt="t" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:U"><img src="images/letters/u.gif" alt="u" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:V"><img src="images/letters/v.gif" alt="v" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:W"><img src="images/letters/w.gif" alt="w" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:X"><img src="images/letters/x.gif" alt="x" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:Y"><img src="images/letters/y.gif" alt="y" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:Z"><img src="images/letters/z.gif" alt="z" class="img-rounded" /></t:eventlink>
+                    </div>
+                </div>
+            </div>
+            <p:else>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="span4 text-center">
+                            *** Game up *** <br/>
+                            <t:if test="score">
+                                Your score - ${score} <br/>
+                            </t:if>
+                            <t:eventlink t:event="startOver">Start over</t:eventlink>
+                        </div>
+                    </div>
+                </div>
+            </p:else>
+        </t:if>
+    </div>
+</html>
