@@ -38,7 +38,7 @@
                         <t:eventlink t:event="letterClicked" t:context="literal:J"><img src="images/letters/j.gif" alt="k" class="img-rounded" /></t:eventlink>
                         <t:eventlink t:event="letterClicked" t:context="literal:K"><img src="images/letters/k.gif" alt="l" class="img-rounded" /></t:eventlink>
                         <t:eventlink t:event="letterClicked" t:context="literal:L"><img src="images/letters/l.gif" alt="m" class="img-rounded" /></t:eventlink>
-                        <t:eventlink t:event="letterClicked" t:context="literal:N"><img src="images/letters/m.gif" alt="n" class="img-rounded" /></t:eventlink>
+                        <t:eventlink t:event="letterClicked" t:context="literal:M"><img src="images/letters/m.gif" alt="n" class="img-rounded" /></t:eventlink>
                         <t:eventlink t:event="letterClicked" t:context="literal:N"><img src="images/letters/n.gif" alt="o" class="img-rounded" /></t:eventlink>
                         <t:eventlink t:event="letterClicked" t:context="literal:O"><img src="images/letters/o.gif" alt="p" class="img-rounded" /></t:eventlink>
                         <t:eventlink t:event="letterClicked" t:context="literal:P"><img src="images/letters/p.gif" alt="q" class="img-rounded" /></t:eventlink>

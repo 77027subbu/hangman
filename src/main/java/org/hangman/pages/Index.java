@@ -8,7 +8,12 @@ import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.internal.services.FlashPersistentFieldStrategy;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hangman.models.Word;
+import org.hangman.services.IMongoDBHandler;
 import org.slf4j.Logger;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by subbu on 06/05/14.
@@ -45,11 +50,20 @@ public class Index {
     @Property
     private int score;
 
+    @Inject
+    private IMongoDBHandler mongoDB;
+
+    private final Random random = new Random(System.nanoTime());
+
     @Log
     @OnEvent(value = EventConstants.ACTIVATE)
     void thisPageBeenRequested() {
-        hangmanString="APPLE";
+        //hangmanString="APPLE";
         if(characters==null){
+            int target = random.nextInt(3) + 1;
+            Word word = mongoDB.getWord(target);
+            hangmanString = word.getWord();
+            logger.info("words - " + word);
             characters = new String[hangmanString.length()];
             missedCount=0;
             score=0;
