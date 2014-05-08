@@ -1,32 +1,36 @@
 package org.hangman.models;
 
-import com.mongodb.BasicDBObject;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 import java.io.Serializable;
 
 /**
  * Created by subbu on 08/05/14.
  */
-public class Hint extends BasicDBObject implements Serializable {
+public class Hint implements Serializable {
 
     private Integer id;
     private String hint;
 
     public Integer getId() {
-        return (Integer) get("id");
+        return id;
     }
 
     public void setId(Integer id) {
-        put("id", id);
         this.id = id;
     }
 
     public String getHint() {
-        return (String) get("hint");
+        return hint;
     }
 
     public void setHint(String hint) {
-        put("hint", hint);
         this.hint = hint;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

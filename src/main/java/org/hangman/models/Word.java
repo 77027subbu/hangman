@@ -1,42 +1,46 @@
 package org.hangman.models;
 
-import com.mongodb.BasicDBObject;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by subbu on 08/05/14.
  */
-public class Word extends BasicDBObject implements Serializable{
+public class Word implements Serializable {
 
     private Integer id;
     private String word;
-    private Hint[] hints;
+    private List<Hint> hints;
 
     public Integer getId() {
-        return (Integer) get("id");
+        return id;
     }
 
     public void setId(Integer id) {
-        put("id",id);
         this.id = id;
     }
 
     public String getWord() {
-        return (String) get("word");
+        return word;
     }
 
     public void setWord(String word) {
-        put("word",word);
         this.word = word;
     }
 
-    public Hint[] getHints() {
-        return (Hint[]) get("hints");
+    public List<Hint> getHints() {
+        return hints;
     }
 
-    public void setHints(Hint[] hints) {
-        put("hints", hints);
+    public void setHints(List<Hint> hints) {
         this.hints = hints;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

@@ -44,13 +44,16 @@ public class Index {
     private IDBHandler mongoDB;
     @InjectComponent
     private Zone gameZone, gameResult;
+    @SessionAttribute("magicWord")
+    @Property
+    private Word word;
 
     @Log
     @OnEvent(value = EventConstants.ACTIVATE)
     void thisPageBeenRequested() {
         if (characters == null) {
             int target = random.nextInt(3) + 1;
-            Word word = mongoDB.getWord(target);
+            word = mongoDB.getWord(target);
             hangmanString = word.getWord();
             logger.info("words - " + word);
             characters = new String[hangmanString.length()];

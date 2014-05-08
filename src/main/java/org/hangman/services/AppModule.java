@@ -28,7 +28,7 @@ public class AppModule {
         // Use service builder methods (example below) when the implementation
         // is provided inline, or requires more initialization than simply
         // invoking the constructor.
-        binder.bind(IDBHandler.class, MongoDBHandler.class);
+        binder.bind(IDBHandler.class, MongoDBJongoHandler.class);
     }
 
     public static void contributeFactoryDefaults(
