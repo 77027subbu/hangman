@@ -3,10 +3,8 @@ package org.hangman.pages;
 import org.apache.commons.lang.CharUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventConstants;
-import org.apache.tapestry5.annotations.Log;
-import org.apache.tapestry5.annotations.OnEvent;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SessionAttribute;
+import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hangman.models.Word;
 import org.hangman.services.IDBHandler;
@@ -44,6 +42,8 @@ public class Index {
     private int score;
     @Inject
     private IDBHandler mongoDB;
+    @InjectComponent
+    private Zone gameZone, gameResult;
 
     @Log
     @OnEvent(value = EventConstants.ACTIVATE)
@@ -62,28 +62,34 @@ public class Index {
 
     @Log
     @OnEvent(value = "letterClicked")
-    void add(String _char) {
-        hasChosen = Boolean.TRUE;
-        if (isPresent(_char)) {
-            int[] loc = atLocation(_char);
-            for (int i = 0; i < loc.length; i++) {
-                logger.info("atLocation - " + loc[i]);
-                characters[loc[i]] = _char.toLowerCase();
-            }
-        } else {
-            missedCount += 1;
-        }
-        logger.info("Missed count - " + missedCount + " - guessed string - " + StringUtils.join(characters));
-        if (missedCount == 10 || StringUtils.join(characters).equalsIgnoreCase(hangmanString)) {
-            if (StringUtils.join(characters).equalsIgnoreCase(hangmanString)) {
-                for (int i = 0; i < characters.length; i++) {
-                    score += getScore(characters[i]);
+    Object add(String _char) {
+        if (!gameUp.booleanValue()) {
+            hasChosen = Boolean.TRUE;
+            if (isPresent(_char)) {
+                int[] loc = atLocation(_char);
+                for (int i = 0; i < loc.length; i++) {
+                    logger.info("atLocation - " + loc[i]);
+                    characters[loc[i]] = _char.toLowerCase();
                 }
-                logger.info("Your score - " + score);
+            } else {
+                missedCount += 1;
             }
-            logger.info("Game up");
-            gameUp = Boolean.TRUE;
+            logger.info("Missed count - " + missedCount + " - guessed string - " + StringUtils.join(characters));
+            if (missedCount == 10 || StringUtils.join(characters).equalsIgnoreCase(hangmanString)) {
+                if (StringUtils.join(characters).equalsIgnoreCase(hangmanString)) {
+                    for (int i = 0; i < characters.length; i++) {
+                        score += getScore(characters[i]);
+                    }
+                    logger.info("Your score - " + score);
+                }
+                logger.info("Game up");
+                gameUp = Boolean.TRUE;
+            }
         }
+        if (gameUp.booleanValue()) {
+            return gameResult.getBody();
+        }
+        return gameZone.getBody();
     }
 
     @Log
