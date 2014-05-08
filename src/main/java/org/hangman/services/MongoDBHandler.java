@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by subbu on 08/05/14.
  */
-public class MongoDBHandler implements IMongoDBHandler {
+public class MongoDBHandler implements IDBHandler {
     private DB db;
 
     public MongoDBHandler() throws UnknownHostException, MongoException {
@@ -21,7 +21,7 @@ public class MongoDBHandler implements IMongoDBHandler {
 
     @Log
     private void connectToDatabase() throws UnknownHostException, MongoException {
-        MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
         this.db = mongoClient.getDB("hangman");
     }
 
@@ -31,7 +31,7 @@ public class MongoDBHandler implements IMongoDBHandler {
         DBCollection dbCollection = db.getCollection("words");
         dbCollection.setObjectClass(Word.class);
         DBCursor dbCursor = dbCollection.find();
-        while(dbCursor.hasNext()) {
+        while (dbCursor.hasNext()) {
             Word word = (Word) dbCursor.next();
             words.add(word);
         }
@@ -39,13 +39,13 @@ public class MongoDBHandler implements IMongoDBHandler {
     }
 
     @Log
-    public Word getWord(int id){
+    public Word getWord(int id) {
         Word word = null;
         DBCollection dbCollection = db.getCollection("words");
         dbCollection.setObjectClass(Word.class);
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("id", Integer.valueOf(id));
-        word = (Word)dbCollection.findOne(whereQuery);
+        word = (Word) dbCollection.findOne(whereQuery);
         return word;
     }
 }

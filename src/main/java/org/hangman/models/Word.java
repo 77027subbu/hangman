@@ -11,9 +11,7 @@ public class Word extends BasicDBObject implements Serializable{
 
     private Integer id;
     private String word;
-    private String hint1;
-    private String hint2;
-    private String hint3;
+    private Hint[] hints;
 
     public Integer getId() {
         return (Integer) get("id");
@@ -33,30 +31,12 @@ public class Word extends BasicDBObject implements Serializable{
         this.word = word;
     }
 
-    public String getHint1() {
-        return (String) get("hint1");
+    public Hint[] getHints() {
+        return (Hint[]) get("hints");
     }
 
-    public void setHint1(String hint1) {
-        put("hint1",hint1);
-        this.hint1 = hint1;
-    }
-
-    public String getHint2() {
-        return (String) get("hint2");
-    }
-
-    public void setHint2(String hint2) {
-        put("hint2",hint2);
-        this.hint2 = hint2;
-    }
-
-    public String getHint3() {
-        return (String) get("hint3");
-    }
-
-    public void setHint3(String hint3) {
-        put("hint3",hint3);
-        this.hint3 = hint3;
+    public void setHints(Hint[] hints) {
+        put("hints", hints);
+        this.hints = hints;
     }
 }

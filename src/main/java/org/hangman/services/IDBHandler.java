@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by subbu on 08/05/14.
  */
-public interface IMongoDBHandler {
+public interface IDBHandler {
 
     public List<Word> getAllWords();
 
