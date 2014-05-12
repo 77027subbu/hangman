@@ -97,13 +97,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
         </dependency>
 
         <dependency>
-            <groupId>org.got5</groupId>
-            <artifactId>tapestry5-jquery</artifactId>
-            <version>3.3.7</version>
-        </dependency>
-
-        <dependency>
-        <groupId>commons-lang</groupId>
+            <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.3</version>
         </dependency>
