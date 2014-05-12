@@ -34,22 +34,122 @@
 
 <p>As a part of learning curve, I wanted to test my skills in using a Apache Tapestry 5 and so I started writing up a program to simulate the Hangman game. The beauty I liked in Tapestry is that I can write my code as if I'm writing sequences for a stage or a game or to be more precise like state diagrams. </p>
 
+<p>The words are currently read from a MongoDB collection called words which looks as below </p>
+
+<div class="highlight highlight-javascript"><pre><span class="cm">/* 0 */</span>
+<span class="p">{</span>
+    <span class="s2">"_id"</span> <span class="o">:</span> <span class="nx">ObjectId</span><span class="p">(</span><span class="s2">"536a88ce37bd12c7b24d8ef2"</span><span class="p">),</span>
+    <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"word"</span> <span class="o">:</span> <span class="s2">"APPLE"</span><span class="p">,</span>
+    <span class="s2">"hints"</span> <span class="o">:</span> <span class="p">[</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"Its a fruit"</span>
+        <span class="p">},</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"Its red in color"</span>
+        <span class="p">},</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"Having one of this fruit everyday, keeps the doctor away"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="cm">/* 1 */</span>
+<span class="p">{</span>
+    <span class="s2">"_id"</span> <span class="o">:</span> <span class="nx">ObjectId</span><span class="p">(</span><span class="s2">"536a89ae37bd12c7b24d8ef4"</span><span class="p">),</span>
+    <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">"word"</span> <span class="o">:</span> <span class="s2">"COMPUTER"</span><span class="p">,</span>
+    <span class="s2">"hints"</span> <span class="o">:</span> <span class="p">[</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"Its a machine"</span>
+        <span class="p">},</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"It has revolutionized the way we do business"</span>
+        <span class="p">},</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"Does many of the mundane tasks repeatedly and accurately"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="cm">/* 2 */</span>
+<span class="p">{</span>
+    <span class="s2">"_id"</span> <span class="o">:</span> <span class="nx">ObjectId</span><span class="p">(</span><span class="s2">"536a893237bd12c7b24d8ef3"</span><span class="p">),</span>
+    <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"word"</span> <span class="o">:</span> <span class="s2">"MANGO"</span><span class="p">,</span>
+    <span class="s2">"hints"</span> <span class="o">:</span> <span class="p">[</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"Its a fruit"</span>
+        <span class="p">},</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"Its sometimes green or yellow in color"</span>
+        <span class="p">},</span> 
+        <span class="p">{</span>
+            <span class="s2">"id"</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">"hint"</span> <span class="o">:</span> <span class="s2">"Said to be the king of fruits"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
 <p>I would like to divide the flow into 3 states or stages - </p>
 
 <ul>
 <li>Initial Game Setup</li>
 <li>User Guess</li>
 <li>Win or Loss</li>
-</ul><h3>
-<a name="initial-game-setup" class="anchor" href="#initial-game-setup"><span class="octicon octicon-link"></span></a>Initial Game Setup</h3>
+</ul><h4>
+<a name="initial-game-setup" class="anchor" href="#initial-game-setup"><span class="octicon octicon-link"></span></a>Initial Game Setup</h4>
 
-<p>The user is presented with a screen like below with a initial hint of the word to be guessed. </p>
+<p>The user is presented with a screen like below with an initial hint of the word to be guessed. </p>
 
 <p><img src="https://raw.githubusercontent.com/77027subbu/hangman/master/images/Hangman-Game-1.png" alt=""></p>
 
-<p>Please be patient WIP...</p>
+<h4>
+<a name="user-guess" class="anchor" href="#user-guess"><span class="octicon octicon-link"></span></a>User Guess</h4>
 
-<h3>
+<p>The user starts guessing the word. There are 2 states here - </p>
+
+<h5>
+<a name="the-user-guesses-the-letters-correct-and-the-letters-start-filling-up--" class="anchor" href="#the-user-guesses-the-letters-correct-and-the-letters-start-filling-up--"><span class="octicon octicon-link"></span></a>The user guesses the letters correct and the letters start filling up -</h5>
+
+<p><img src="https://raw.githubusercontent.com/77027subbu/hangman/master/images/Hangman-Game-2.png" alt=""></p>
+
+<p><img src="https://raw.githubusercontent.com/77027subbu/hangman/master/images/Hangman-Game-3.png" alt=""></p>
+
+<h5>
+<a name="the-user-guesses-the-letters-wrong-and-the-hangman-image-starts-improving--" class="anchor" href="#the-user-guesses-the-letters-wrong-and-the-hangman-image-starts-improving--"><span class="octicon octicon-link"></span></a>The user guesses the letters wrong and the hangman image starts improving -</h5>
+
+<p><img src="https://raw.githubusercontent.com/77027subbu/hangman/master/images/Hangman-Game-4.png" alt=""></p>
+
+<h4>
+<a name="win-or-loss" class="anchor" href="#win-or-loss"><span class="octicon octicon-link"></span></a>Win or Loss</h4>
+
+<h4>
+<a name="the-game-completes-and-displays-a-score-if-the-user-guesses-all-the-letters-correct" class="anchor" href="#the-game-completes-and-displays-a-score-if-the-user-guesses-all-the-letters-correct"><span class="octicon octicon-link"></span></a>The game completes and displays a score if the user guesses all the letters correct.</h4>
+
+<p><img src="https://raw.githubusercontent.com/77027subbu/hangman/master/images/Hangman-Game-5.png" alt=""></p>
+
+<h4>
+<a name="the-user-fails-guessing-the-letters-and-hangman-improves-to-the-last-state-so-the-user-is-presented-with-the-final-screen-without-a-score" class="anchor" href="#the-user-fails-guessing-the-letters-and-hangman-improves-to-the-last-state-so-the-user-is-presented-with-the-final-screen-without-a-score"><span class="octicon octicon-link"></span></a>The user fails guessing the letters and hangman improves to the last state so the user is presented with the final screen without a score.</h4>
+
+<p><img src="https://raw.githubusercontent.com/77027subbu/hangman/master/images/Hangman-Game-6.png" alt=""></p>
+
+<hr><h3>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h3>
+
+<ul>
+<li>Provide more hints to the user to guess the word and everytime the user uses a hint the hangman image improves to the next step.</li>
+<li>Provide options to the user to guess from a category of words to guess.</li>
+</ul><hr><h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
 <p><a href="https://github.com/77027subbu" class="user-mention">@77027subbu</a> is a programmer in developing solutions for the enterprise web and e-commerce platforms using Java and J2EE with interests in dynamic languages like Groovy, Ruby, Scala and the list goes on. Yes you can expect more of projects and articles from me on one or many of these :)</p>
